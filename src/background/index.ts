@@ -38,8 +38,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 	// Add update alarms
 	// NOTE: Are we sure that these alarms will fire reliably?
 	chrome.alarms.create(ALARM_NAME, {
-		//periodInMinutes: 60 * 24 * 4,
-		periodInMinutes: 1,
+		periodInMinutes: 60 * 24 * 4,
 	});
 
 	chrome.alarms.onAlarm.addListener(async (alarm) => {
