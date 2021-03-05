@@ -18,7 +18,7 @@ async function update(src: string): Promise<void> {
 			});
 
 			// Then we retrive them with:
-			//chrome.storage.local.get((res) => {
+			//chrome.storage.local.get('rates', (res) => {
 			//	console.log('The rates are %o', res.rates);
 			//});
 		})
