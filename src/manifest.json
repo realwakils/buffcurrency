@@ -14,8 +14,7 @@
 				"content/index.ts"
 			],
 			"matches": [
-				"https://*/*",
-				"http://*/*"
+				"*://buff.163.com/*"
 			]
 		}
 	],
