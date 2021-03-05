@@ -1,7 +1,7 @@
-<script>
-  import Counter from "./Counter.svelte";
+<script lang="ts">
+  import TitleStuffyDuffy from './TitleStuffyDuffy.svelte';
 </script>
 
 <main class="p-2">
-  <Counter />
+  <TitleStuffyDuffy />
 </main>
