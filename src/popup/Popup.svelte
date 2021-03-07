@@ -1,47 +1,26 @@
 <script lang="ts">
 	import Header from "./Header.svelte";
 	import Footer from "./Footer.svelte";
-	interface Rates {
-		rates: Record<string, number>;
-		base: string;
-		date: string;
-	}
+	import type { Rates } from "../utils/fetchData";
+	import { fetchData } from "../utils/fetchData";
+
 	let currentCurrency: string;
 	let rates: Rates;
 
-	function fetchData(): Promise<void> {
-		return new Promise((resolve, reject) => {
-			// Fetch rates from local
-			chrome.storage.local.get("rates", res => {
-				rates = res.rates;
-				if (!rates) {
-					reject("Failed to fetch currency rates.");
-				} else {
-					console.log("The rates are %o", res.rates);
-				}
-
-				// Fetch rates from sync
-				chrome.storage.sync.get("userCurrency", userCurrency => {
-					if (!userCurrency.userCurrency) {
-						currentCurrency = "USD";
-					} else {
-						currentCurrency = userCurrency.userCurrency;
-					}
-					resolve();
-				});
-			});
-		});
+	async function fetchDataSetPiss() {
+		[rates, currentCurrency] = await fetchData();
 	}
 
 	function delay(ms: number) {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
+
 	async function updateStorageAPI(): Promise<void> {
 		await delay(1); // TODO: Wow, wasn't fun debugging. For some awful reason
 		// the currenctCurrency variable isn't updated with the latest currency input...
-		// even when awaiting for 1 ms, it always works... Strange.
+		// when awaiting for 1 ms, it always works... Strange.
 		chrome.storage.sync.set({ userCurrency: currentCurrency }, () => {
-			console.log(`Selected currency: ${currentCurrency}`);
+			console.log(`Updated currency: ${currentCurrency}`);
 		});
 	}
 </script>
@@ -49,7 +28,7 @@
 <main>
 	<Header />
 
-	{#await fetchData()}
+	{#await fetchDataSetPiss()}
 		<p>Awaiting data...</p>
 	{:then _}
 		<form>

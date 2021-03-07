@@ -13,7 +13,9 @@
 <style>
 	main {
 		font-size: larger;
+		text-align: center;
 	}
+
 	p {
 		margin-block-start: 0.5em;
 		margin-block-end: 0.5em;

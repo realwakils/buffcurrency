@@ -9,6 +9,7 @@
 	}
 	h1,
 	h4 {
-		display: inline;
+		margin-block-end: .25em;
+		margin-block-start: 0;
 	}
 </style>
