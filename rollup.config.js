@@ -19,6 +19,7 @@ export default {
   output: {
     dir: "dist",
     format: "esm",
+		sourcemap: !production
   },
   plugins: [
     // always put chromeExtension() before other plugins
@@ -28,7 +29,7 @@ export default {
       preprocess: sveltePreprocess(),
       compilerOptions: {
         // enable run-time checks when not in production
-        dev: !production,
+        dev: !production
       },
     }),
     postcss({ minimize: production }),
@@ -38,7 +39,7 @@ export default {
     }),
     // https://github.com/rollup/plugins/tree/master/packages/commonjs
     commonjs(),
-    typescript({ sourceMap: false }),
+    typescript({ sourceMap: !production, inlineSources: !production }),
     // Empties the output dir before a new build
     emptyDir(),
     // If we're building for production, minify

@@ -1,26 +1,36 @@
 <script lang="ts">
-	let currentCurrency: string;
-	let rates: Rates;
-
-	chrome.storage.local.get('rates', (res) => {
-		rates = res.rates;
-		console.log('The rates are %o', res.rates);
-	});
-	
-	chrome.storage.sync.get("userCurrency", userCurrency => {
-		if (!userCurrency.userCurrency) {
-			currentCurrency = "USD";
-			updateStorageAPI();
-		} else {
-			currentCurrency = userCurrency.userCurrency;
-		}
-	});
-
-	import TitleStuffyDuffy from "./TitleStuffyDuffy.svelte";
+	import Header from "./Header.svelte";
+	import Footer from "./Footer.svelte";
 	interface Rates {
 		rates: Record<string, number>;
 		base: string;
 		date: string;
+	}
+	let currentCurrency: string;
+	let rates: Rates;
+
+	function fetchData(): Promise<void> {
+		return new Promise((resolve, reject) => {
+			// Fetch rates from local
+			chrome.storage.local.get("rates", res => {
+				rates = res.rates;
+				if (!rates) {
+					reject("Failed to fetch currency rates.");
+				} else {
+					console.log("The rates are %o", res.rates);
+				}
+
+				// Fetch rates from sync
+				chrome.storage.sync.get("userCurrency", userCurrency => {
+					if (!userCurrency.userCurrency) {
+						currentCurrency = "USD";
+					} else {
+						currentCurrency = userCurrency.userCurrency;
+					}
+					resolve();
+				});
+			});
+		});
 	}
 
 	function delay(ms: number) {
@@ -37,36 +47,44 @@
 </script>
 
 <main>
-	<TitleStuffyDuffy />
+	<Header />
 
-	<form>
-		<select
-			bind:value={currentCurrency}
-			on:input={updateStorageAPI}
-			id="dropdown"
-		>
-			{#each Object.keys(rates["rates"]).sort() as currency}
-				<option value={currency}>{currency}</option>
-			{/each}
-		</select>
-	</form>
+	{#await fetchData()}
+		<p>Awaiting data...</p>
+	{:then _}
+		<form>
+			<select
+				bind:value={currentCurrency}
+				on:input={updateStorageAPI}
+			>
+				{#each Object.keys(rates["rates"]).sort() as currency}
+					<option value={currency}>{currency}</option>
+				{/each}
+			</select>
+		</form>
+	{:catch error}
+		<p style="color: red">{error}</p>
+	{/await}
+	<Footer />
 </main>
 
 <style>
 	main {
-		min-width: 350px;
+		min-width: 200px;
 		padding: 1em;
 	}
 
 	select {
 		min-width: 160px;
-		box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+		box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
 		padding: 6px 8px;
-		background-color: #0F9D58;
+		background-color: #0f9d58;
 		color: white;
 		font-size: 16px;
 		border: none;
 		cursor: pointer;
 		border-radius: 3px;
+		margin-top: 1em;
+		margin-bottom: .5em;
 	}
 </style>
