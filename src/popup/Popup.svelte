@@ -3,22 +3,19 @@
 	import Footer from "./Footer.svelte";
 	import type { Rates } from "../utils/fetchData";
 	import { fetchData } from "../utils/fetchData";
-
+	import { tick } from 'svelte';
+	
 	let currentCurrency: string;
-	let rates: Rates;
+	let data: Rates;
 
 	async function fetchDataSetPiss() {
-		[rates, currentCurrency] = await fetchData();
-	}
-
-	function delay(ms: number) {
-		return new Promise(resolve => setTimeout(resolve, ms));
+		[data, currentCurrency] = await fetchData();
 	}
 
 	async function updateStorageAPI(): Promise<void> {
-		await delay(1); // TODO: Wow, wasn't fun debugging. For some awful reason
-		// the currenctCurrency variable isn't updated with the latest currency input...
-		// when awaiting for 1 ms, it always works... Strange.
+		// wait for binding to reload 
+		await tick();
+
 		chrome.storage.sync.set({ userCurrency: currentCurrency }, () => {
 			console.log(`Updated currency: ${currentCurrency}`);
 		});
@@ -36,7 +33,7 @@
 				bind:value={currentCurrency}
 				on:input={updateStorageAPI}
 			>
-				{#each Object.keys(rates["rates"]).sort() as currency}
+				{#each Object.keys(data.rates).sort() as currency}
 					<option value={currency}>{currency}</option>
 				{/each}
 			</select>
