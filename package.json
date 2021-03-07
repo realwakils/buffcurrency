@@ -17,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/kyrelldixon/buffcurrency.git"
   },
-  "author": "wakils, linnnus",
+  "author": "wakils, linnus",
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",

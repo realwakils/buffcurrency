@@ -2,7 +2,7 @@
 	<hr />
 	<p>
 		Created with 💖 by <a target="_blank" href="http://wakils.com">wakils</a> &
-		<a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">linnnus</a>
+		<a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">linnus</a>
 	</p>
 	<p>
 		<a target="_blank" href="https://github.com/realwakils/buffcurrency/">Contribute</a> •
