@@ -33,7 +33,7 @@ async function update(src: string): Promise<void> {
 // ton of problems that I'm unavare of.
 chrome.runtime.onInstalled.addListener(async () => {
 	// Initial update
-	update(URLS_SRC);
+	await update(URLS_SRC);
 
 	// Add update alarms
 	// NOTE: Are we sure that these alarms will fire reliably?
@@ -44,9 +44,9 @@ chrome.runtime.onInstalled.addListener(async () => {
 	chrome.alarms.onAlarm.addListener(async (alarm) => {
 		if (alarm.name !== ALARM_NAME) return;
 
-		update(URLS_SRC);
+		await update(URLS_SRC);
 	});
 });
 
 // Dummy export
-export {};
+export { };
