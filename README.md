@@ -14,6 +14,8 @@ Current status: `NO RELEASES - IN DEVELOPMENT`
 * Provides a user-friendly diverse UI, that lets you change to your wanted currency
 * Features more than 30 currencies
 * Fast and light-weight
+* Synchronizes user preferences (chosed currency) across all devices on an acccount.
+* Automatically updates currency rates frequently, so you never get inaccurate prices.
 
 ## Installation and guide
 1. Install the latest version of Buff Currency on the Google Webstore [here](https://google.com).
