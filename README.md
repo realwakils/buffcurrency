@@ -41,7 +41,7 @@ npm install yarn -g
 1. Clone the repo
 ```sh
 git clone https://github.com/realwakils/buffcurrency.git
-cd CrewLink
+cd buffcurrency
 ```
 2. Install NPM packages
 ```sh
