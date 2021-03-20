@@ -10,7 +10,6 @@ export function startObserver(callback: (thingyBobs: Array<any>) => void): void 
 
 const targetClass: string = "f_Strong";
 function onMutation(mutations): void {
-	console.log(mutations);
 	let found: Array<any> = [];
 	for (const { addedNodes } of mutations) {
 		for (const node of addedNodes) {
