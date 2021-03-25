@@ -6,7 +6,9 @@
 	</p>
 	<p>
 		<a target="_blank" href="https://github.com/realwakils/buffcurrency/">Contribute</a> •
-		<a target="_blank" href="https://www.paypal.com/paypalme/wakils">Support</a>
+		<a target="_blank" href="https://www.paypal.com/paypalme/wakils">Support</a> •
+		<!-- svelte-ignore missing-declaration -->
+		{chrome.runtime.getManifest().version}
 	</p>
 </main>
 
