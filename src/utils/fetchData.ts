@@ -15,7 +15,7 @@ export function fetchData(): Promise<[Rates, string]> {
 
 			// Fetch rates from sync
 			chrome.storage.sync.get("userCurrency", (res) => {
-				currency = res.userCurrency || "USD";
+				currency = res.userCurrency || "DKK";
 
 				resolve([rates, currency]);
 			});
