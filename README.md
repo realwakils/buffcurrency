@@ -7,7 +7,7 @@
 A currency converter made for buff.163.com (Google Extension)<br>
 Created with 💖 by [wakils](http://wakils.com) & [linnnus](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
-Current status: `NO RELEASES - IN DEVELOPMENT` 
+Current status: `RELEASED` 
 
 ## Features
 * Eases the process of converting currencies from buff.163.com
