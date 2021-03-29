@@ -60,3 +60,10 @@ Any contributions you make are greatly appreciated.
 3. Commit your Changes (`git commit -a -m 'Add some AmazingFeature`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+## Credits
+Extra credits are due to:
+- [Zukko04](https://www.instagram.com/lassesejrbrunbjerg/): Helped a lot with testing.
+- [CoachDP](https://www.twitch.tv/coachdp): Denmark's greatest streamer! A regular user of Buff.163.com and helped testing aswell.
+
+Thank you!
