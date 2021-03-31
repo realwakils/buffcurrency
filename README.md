@@ -7,7 +7,7 @@
 A currency converter made for buff.163.com (Google Extension)<br>
 Created with 💖 by [wakils](http://wakils.com) & [linnnus](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
-Current status: `NO RELEASES - IN DEVELOPMENT` 
+Current status: `RELEASED` 
 
 ## Features
 * Eases the process of converting currencies from buff.163.com
@@ -18,7 +18,7 @@ Current status: `NO RELEASES - IN DEVELOPMENT`
 * Automatically updates currency rates frequently, so you never get inaccurate prices.
 
 ## Installation and guide
-1. Install the latest version of Buff Currency on the Google Webstore [here](https://google.com).
+1. Install the latest version of Buff Currency on the Google Webstore [here](https://chrome.google.com/webstore/detail/buff-currency/ecnjcjbilnpjjnpjlfkoompbpehpbnbc).
 2. Find Buff Currency in your Chrome Extensions and choose the currency you want to convert to.
 3. Head on over to buff.163.com (if you are already on buff, make sure to reload). Now you should see the prices being converted.
 
