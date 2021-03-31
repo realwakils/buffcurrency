@@ -1,5 +1,3 @@
-console.log("background script working");
-
 const ALARM_NAME = "updateRates";
 // Base will always be CNY
 const URLS_SRC = "https://api.exchangeratesapi.io/latest?base=CNY";
