@@ -11,6 +11,7 @@ import {
   simpleReloader,
 } from "rollup-plugin-chrome-extension";
 import { emptyDir } from "rollup-plugin-empty-dir";
+import replace from "@rollup/plugin-replace";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -25,6 +26,12 @@ export default {
     // always put chromeExtension() before other plugins
     chromeExtension(),
     simpleReloader(),
+		replace({
+			preventAssignment: true,
+			values: {
+				isProduction: production
+			}
+		}),
     svelte({
       preprocess: sveltePreprocess(),
       compilerOptions: {
