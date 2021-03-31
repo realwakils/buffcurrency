@@ -1,29 +1,21 @@
+import { URLS_SRC } from '../utils/consts';
 const ALARM_NAME = "updateRates";
-// Base will always be CNY
-const URLS_SRC = "https://api.exchangeratesapi.io/latest?base=CNY";
 
 async function update(src: string): Promise<void> {
-	// Fetch data
-	await fetch(src)
-		.then((res) => {
-			if (!res.ok) throw new Error("Fetch failed!");
-			return res.json(); // should we await this?
-		})
-		.then((json) => {
-			// Save rates
-			chrome.storage.local.set({ rates: json }, () => {
-				console.log("Succesfully saved rates: %o", json);
-			});
+	try {
+		// Fetch data
+		const res = await fetch(src);
+		if (!res.ok) throw new Error("Fetch failed!");
+		const json = await res.json();
 
-			// Then we retrive them with:
-			//chrome.storage.local.get('rates', (res) => {
-			//	console.log('The rates are %o', res.rates);
-			//});
-		})
-		.catch((err) => {
-			console.error("An error occured when fetching URLs:");
-			throw err;
+		// Save
+		chrome.storage.local.set({ rates: json }, () => {
+			console.log("Succesfully saved rates: %o", json);
 		});
+	} catch(err) {
+		console.error("An error occured when fethcing currency data:");
+		throw err;
+	}
 }
 
 // TODO: It feels so wrong to use an async function

@@ -17,8 +17,10 @@ import { targetClassesSelector } from '../utils/consts';
 	}
 
 	// Replacing nodes with: All target classes, spans w/84 width (buttons on deposit and gift card page)
-	replaceNodes([...document.querySelectorAll(targetClassesSelector),
-		...[...document.querySelectorAll('span')].filter(spanNode => spanNode.getAttribute('width') === '84')]);
+	const targets = [...document.querySelectorAll(targetClassesSelector)];
+	const targetSpans = [...document.querySelectorAll('span')]
+		.filter(spanNode => spanNode.getAttribute('width') === '84')
+	replaceNodes(targets.concat(targetSpans));
 
 	Observer.startObserver(replaceNodes);
 })();
