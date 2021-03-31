@@ -29,10 +29,7 @@
 		<p>Awaiting data...</p>
 	{:then _}
 		<form>
-			<select
-				bind:value={currentCurrency}
-				on:input={updateStorageAPI}
-			>
+			<select bind:value={currentCurrency} on:input={updateStorageAPI}>
 				{#each Object.keys(data.rates).sort() as currency}
 					<option value={currency}>{currency}</option>
 				{/each}
@@ -41,6 +38,7 @@
 	{:catch error}
 		<p style="color: red">{error}</p>
 	{/await}
+
 	<Footer />
 </main>
 
@@ -61,6 +59,22 @@
 		cursor: pointer;
 		border-radius: 3px;
 		margin-top: 1em;
-		margin-bottom: .5em;
+		margin-bottom: 0.5em;
+	}
+
+	/* SCROLL BAR */
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+	::-webkit-scrollbar-track {
+		border-radius: 10px;
+		background: #f1f1f1;
+	}
+	::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		background: #888;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: #555;
 	}
 </style>
