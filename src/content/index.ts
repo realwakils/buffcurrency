@@ -9,18 +9,13 @@ import { targetClassesSelector } from '../utils/consts';
 	function replaceNodes(nodes: Array<any>) {
 		nodes.forEach(node => {
 			node.innerText = node.innerText.replace(/¥ (\d+(.\d+)?)/gm, (_: any, g: string) => { // make sure to reassign (example: x = x+1 and not just x+1)
-				const priceCNY = parseFloat(g); // we use group 2 (which is the price in cny) and parse it to a float
-				const priceConverted = priceCNY * rate;
+				const priceCNY: number = parseFloat(g); // we use group 2 (which is the price in cny) and parse it to a float
+				const priceConverted: number = priceCNY * rate;
 				return `${priceConverted.toFixed(2)} ${currentCurrency}`;
 			});
 		});
 	}
 
-	// Replacing nodes with: All target classes, spans w/84 width (buttons on deposit and gift card page)
-	const targets = [...document.querySelectorAll(targetClassesSelector)];
-	const targetSpans = [...document.querySelectorAll('span')]
-		.filter(spanNode => spanNode.getAttribute('width') === '84')
-	replaceNodes(targets.concat(targetSpans));
-
+	replaceNodes([...document.querySelectorAll(targetClassesSelector)]);
 	Observer.startObserver(replaceNodes);
 })();
