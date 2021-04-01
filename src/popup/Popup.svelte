@@ -19,28 +19,14 @@
 		chrome.storage.sync.set({ userCurrency: currentCurrency }, () => {
 			console.log(`Updated currency: ${currentCurrency}`);
 		});
+
 	}
+
+	// IDE's do not understand nor work with Rollup injected variables. (@rollup/plugin-replace)
+	// @ts-ignore
+	const showDevMessage: string = !isProduction;
+
 </script>
-
-<main>
-	<Header />
-
-	{#await fetchDataSetPiss()}
-		<p>Awaiting data...</p>
-	{:then _}
-		<form>
-			<select bind:value={currentCurrency} on:input={updateStorageAPI}>
-				{#each Object.keys(data.rates).sort() as currency}
-					<option value={currency}>{currency}</option>
-				{/each}
-			</select>
-		</form>
-	{:catch error}
-		<p style="color: red">{error}</p>
-	{/await}
-
-	<Footer />
-</main>
 
 <style>
 	main {
@@ -58,8 +44,7 @@
 		border: none;
 		cursor: pointer;
 		border-radius: 3px;
-		margin-top: 1em;
-		margin-bottom: 0.5em;
+		margin: 0.5em auto;
 	}
 
 	/* SCROLL BAR */
@@ -78,3 +63,28 @@
 		background: #555;
 	}
 </style>
+
+
+<main>
+	<Header />
+	
+	{#await fetchDataSetPiss()}
+		<p>Awaiting data...</p>
+	{:then _}
+		<form>
+			<select bind:value={currentCurrency} on:input={updateStorageAPI}>
+				{#each Object.keys(data.rates).sort() as currency}
+					<option value={currency}>{currency}</option>
+				{/each}
+			</select>
+		</form>
+	{:catch error}
+		<p style="color: red">{error}</p>
+	{/await}
+	
+	{#if showDevMessage}
+		<strong style="color: orange;">IN DEVELOPMENT</strong>
+	{/if}
+
+	<Footer />
+</main>
