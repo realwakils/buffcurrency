@@ -22,3 +22,14 @@ export function fetchData(): Promise<[Rates, string]> {
 		});
 	});
 }
+
+export function isValidData(data: any): data is Rates {
+	return (
+		typeof data === "object" &&
+		"rates" in data &&
+		typeof data.rates === "object" &&
+		"base" in data &&
+		typeof data.base === "string" &&
+		"date" in data
+	);
+}

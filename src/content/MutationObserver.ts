@@ -1,9 +1,10 @@
 import { targetClasses, targetClassesSelector } from '../utils/consts';
 
 const observer: MutationObserver = new MutationObserver(onMutation);
-let currentCallback: (nodes: Array<any>) => void;
+type callbackType = (nodes: Array<any>) => void;
+let currentCallback: callbackType;
 
-export function startObserver(callback: (nodes: Array<any>) => void): void {
+export function startObserver(callback: callbackType): void {
 	currentCallback = callback;
 	observer.observe(document, {
 		childList: true,
@@ -23,7 +24,7 @@ function onMutation(mutations): void {
 	for (const { addedNodes } of mutations) {
 		for (const node of addedNodes) {
 			if (!node.tagName) continue; // not an element
-			if ([...node.classList].some(r => [...targetClasses, 'h5'].includes(r))) {
+			if ([...node.classList].some(r => targetClasses.includes(r))) {
 				found.push(node);
 			} else if (node.firstElementChild) {
 				found.push(...node.querySelectorAll(targetClassesSelector));

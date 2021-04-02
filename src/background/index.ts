@@ -1,29 +1,49 @@
+import { URLS_SRC } from '../utils/consts';
+import type { Rates } from '../utils/fetchData';
 const ALARM_NAME = "updateRates";
-// Base will always be CNY
-const URLS_SRC = "https://api.exchangeratesapi.io/latest?base=CNY";
 
 async function update(src: string): Promise<void> {
-	// Fetch data
-	await fetch(src)
-		.then((res) => {
-			if (!res.ok) throw new Error("Fetch failed!");
-			return res.json(); // should we await this?
-		})
-		.then((json) => {
-			// Save rates
-			chrome.storage.local.set({ rates: json }, () => {
-				console.log("Succesfully saved rates: %o", json);
-			});
+	try {
+		// Fetch data
+		const res = await fetch(src);
+		if (!res.ok) throw new Error("Fetch failed!");
+		// TEMP: Normally this is just the full object
+		const { record: json } = await res.json();
 
-			// Then we retrive them with:
-			//chrome.storage.local.get('rates', (res) => {
-			//	console.log('The rates are %o', res.rates);
-			//});
-		})
-		.catch((err) => {
-			console.error("An error occured when fetching URLs:");
-			throw err;
+		// Verify data
+		if (!isValidData(json)) {
+			throw new Error("Fetched invalid data!");
+		}
+
+		// Here we convert to base CNY (TEMP)
+		// We no longer have control over the base so we have to convert
+		const tmpRates: Rates["rates"] = {};
+		for (const key in json.rates) {
+			tmpRates[key] = json.rates[key] / json.rates.CNY; 
+		} 
+		json.rates = tmpRates;
+		json.base = "cny";
+
+		// Save
+		chrome.storage.local.set({ rates: json }, () => {
+			console.log("Succesfully saved rates: %o", json);
+			console.log("DKK: ", json.rates["DKK"]);
 		});
+	} catch(err) {
+		console.error("An error occured when fethcing currency data:");
+		throw err;
+	}
+}
+
+function isValidData(data: any): data is Rates {
+	return (
+		typeof data === "object" &&
+		"rates" in data &&
+		typeof data.rates === "object" &&
+		"base" in data &&
+		typeof data.base === "string" &&
+		"date" in data
+	);
 }
 
 // TODO: It feels so wrong to use an async function
@@ -45,6 +65,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 		await update(URLS_SRC);
 	});
 });
+chrome.runtime.onUpdateAvailable.addListener(async () => await update(URLS_SRC));
 
 // Dummy export
 export { };

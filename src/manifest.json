@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Buff Currency",
 	"description": "Buff 163 Currency Realtime Converter",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"background": {
 		"scripts": [
 			"background/index.ts"
@@ -25,7 +25,7 @@
 	},
 	"browser_action": {
 		"default_popup": "popup/index.html",
-        "default_title": "Change the Buff 163 currency",
-        "default_icon": "assets/buff_163_icon.png" 
+        	"default_title": "Change the Buff 163 currency",
+        	"default_icon": "assets/buff_163_icon.png" 
 	}
 }

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "buffcurrency",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Buff 163 Currency Realtime Converter",
   "keywords": [
     "currency",
@@ -50,11 +50,12 @@
     "svelte-preprocess": "^4.0.0",
     "ts-jest": "^26.4.4",
     "tslib": "^2.0.0",
-    "typescript": "^3.9.3"
-  },
-  "dependencies": {
+    "typescript": "^3.9.3",
     "autoprefixer": "^10.2.1",
     "postcss": "^8.2.4",
-    "svelte": "^3.31.2"
+    "svelte": "^3.31.2",
+    "@rollup/plugin-replace": "^2.4.2"
+  },
+  "dependencies": {
   }
 }
