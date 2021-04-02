@@ -9,7 +9,6 @@ async function update(src: string): Promise<void> {
 		if (!res.ok) throw new Error("Fetch failed!");
 		// TEMP: Normally this is just the full object
 		const { record: json } = await res.json();
-		console.log(json);
 
 		// Verify data
 		if (!isValidData(json)) {
