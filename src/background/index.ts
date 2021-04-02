@@ -1,4 +1,5 @@
 import { URLS_SRC } from '../utils/consts';
+import type { Rates } from '../utils/fetchData';
 const ALARM_NAME = "updateRates";
 
 async function update(src: string): Promise<void> {
@@ -6,20 +7,44 @@ async function update(src: string): Promise<void> {
 		// Fetch data
 		const res = await fetch(src);
 		if (!res.ok) throw new Error("Fetch failed!");
-		const json = await res.json();
-		
-		for (key in json.rates) {
-			json.rates[key] = json.rates[key]; / json.rates.CNY;
-		} // Here we convert to base CNY (temporary solution)
+		// TEMP: Normally this is just the full object
+		const { record: json } = await res.json();
+		console.log(json);
+
+		// Verify data
+		if (!isValidData(json)) {
+			throw new Error("Fetched invalid data!");
+		}
+
+		// Here we convert to base CNY (TEMP)
+		// We no longer have control over the base so we have to convert
+		const tmpRates: Rates["rates"] = {};
+		for (const key in json.rates) {
+			tmpRates[key] = json.rates[key] / json.rates.CNY; 
+		} 
+		json.rates = tmpRates;
+		json.base = "cny";
 
 		// Save
 		chrome.storage.local.set({ rates: json }, () => {
 			console.log("Succesfully saved rates: %o", json);
+			console.log("DKK: ", json.rates["DKK"]);
 		});
 	} catch(err) {
 		console.error("An error occured when fethcing currency data:");
 		throw err;
 	}
+}
+
+function isValidData(data: any): data is Rates {
+	return (
+		typeof data === "object" &&
+		"rates" in data &&
+		typeof data.rates === "object" &&
+		"base" in data &&
+		typeof data.base === "string" &&
+		"date" in data
+	);
 }
 
 // TODO: It feels so wrong to use an async function
