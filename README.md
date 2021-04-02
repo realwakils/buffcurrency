@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/github/license/realwakils/buffcurrency.svg)](https://github.com/realwakils/buffcurrency/blob/master/LICENSE)
 [![Stars](https://img.shields.io/github/stars/realwakils/buffcurrency.svg)](https://github.com/realwakils/buffcurrency/stargazers)
 [![Issues](https://img.shields.io/github/issues/realwakils/buffcurrency.svg)](https://github.com/realwakils/buffcurrency/issues)
-[![Donate PayPal](https://img.shields.io/badge/donate-paypal-blue.svg)](https://www.paypal.me/0ffish)
+[![Donate PayPal](https://img.shields.io/badge/donate-paypal-blue.svg)](https://www.paypal.me/wakils)
 
 A currency converter made for buff.163.com (Google Extension)<br>
 Created with 💖 by [wakils](http://wakils.com) & [linnnus](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
