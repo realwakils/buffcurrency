@@ -15,7 +15,9 @@ import { targetClassesSelector } from '../utils/consts';
 			});
 		});
 	}
-
-	replaceNodes([...document.querySelectorAll(targetClassesSelector)]);
-	Observer.startObserver(replaceNodes);
+	
+	if (data && currentCurrency) {
+		replaceNodes([...document.querySelectorAll(targetClassesSelector)]);
+		Observer.startObserver(replaceNodes);
+	}
 })();
