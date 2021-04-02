@@ -23,7 +23,7 @@ Current status: `RELEASED`
 3. Head on over to buff.163.com (if you are already on buff, make sure to reload). Now you should see the prices being converted.
 
 ### Example
-![Example Gif](https://user-images.githubusercontent.com/30203217/103347433-4e5a7400-4a97-11eb-833a-0f5d59b0cd7e.png)
+![Example Gif](https://lh3.googleusercontent.com/pmu_4mv0HxjFKYyneLbmRh4_dUKvKActVx1-KuO4bE6SYVTr_irojvy9ynN1_0HygI4OPxCDDGXYDIRVB_4ccQX8=w640-h400-e365-rj-sc0x00ffffff)
 <!-- Here a gif of choosing a currency and loading buff.163.com should be showed -->
 
 ## Development
