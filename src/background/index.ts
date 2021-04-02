@@ -7,6 +7,7 @@ async function update(src: string): Promise<void> {
 		const res = await fetch(src);
 		if (!res.ok) throw new Error("Fetch failed!");
 		const json = await res.json();
+		if (!res.rates) throw new Error("No rates have been provided!");
 		
 		for (key in json.rates) {
 			json.rates[key] = json.rates[key]; / json.rates.CNY;
