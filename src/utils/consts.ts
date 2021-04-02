@@ -3,4 +3,4 @@ export const targetClasses: Array<string> = [
 	'.active', '.sticker-name>div>div>span', 'h5', '#amount_list>span'
 ];
 export const targetClassesSelector: string = targetClasses.join(', ');
-export const URLS_SRC = "https://api.exchangeratesapi.io/latest?base=CNY";
+export const URLS_SRC = "https://pastebin.com/raw/05jQ9K1T";
