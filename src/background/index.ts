@@ -1,5 +1,5 @@
 import { URLS_SRC } from '../utils/consts';
-import type { Rates } from '../utils/fetchData';
+import { isValidData, Rates } from '../utils/fetchData';
 const ALARM_NAME = "updateRates";
 
 async function update(src: string): Promise<void> {
@@ -27,23 +27,11 @@ async function update(src: string): Promise<void> {
 		// Save
 		chrome.storage.local.set({ rates: json }, () => {
 			console.log("Succesfully saved rates: %o", json);
-			console.log("DKK: ", json.rates["DKK"]);
 		});
 	} catch(err) {
 		console.error("An error occured when fethcing currency data:");
 		throw err;
 	}
-}
-
-function isValidData(data: any): data is Rates {
-	return (
-		typeof data === "object" &&
-		"rates" in data &&
-		typeof data.rates === "object" &&
-		"base" in data &&
-		typeof data.base === "string" &&
-		"date" in data
-	);
 }
 
 // TODO: It feels so wrong to use an async function
@@ -64,8 +52,9 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 		await update(URLS_SRC);
 	});
+
+	chrome.runtime.onUpdateAvailable.addListener(async () => await update(URLS_SRC));
 });
-chrome.runtime.onUpdateAvailable.addListener(async () => await update(URLS_SRC));
 
 // Dummy export
 export { };

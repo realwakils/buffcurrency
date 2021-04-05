@@ -4,9 +4,9 @@ export interface Rates {
 	date: string;
 }
 
-export function fetchData(): Promise<[Rates, string]> {
+export function fetchData(): Promise<[Rates, string, number]> {
 	return new Promise((resolve, reject) => {
-		let rates: Rates, currency: string;
+		let rates: Rates, currency: string, modifier: number;
 
 		// Fetch rates from local
 		chrome.storage.local.get("rates", (res) => {
@@ -17,7 +17,11 @@ export function fetchData(): Promise<[Rates, string]> {
 			chrome.storage.sync.get("userCurrency", (res) => {
 				currency = res.userCurrency || "DKK";
 
-				resolve([rates, currency]);
+				chrome.storage.sync.get("modifier", (res) => {
+					modifier = res.modifier || 100;
+
+					resolve([rates, currency, modifier]);
+				});
 			});
 		});
 	});
