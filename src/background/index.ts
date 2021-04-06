@@ -7,22 +7,13 @@ async function update(src: string): Promise<void> {
 		// Fetch data
 		const res = await fetch(src);
 		if (!res.ok) throw new Error("Fetch failed!");
-		// TEMP: Normally this is just the full object
-		const { record: json } = await res.json();
+
+		const json = await res.json();
 
 		// Verify data
 		if (!isValidData(json)) {
 			throw new Error("Fetched invalid data!");
 		}
-
-		// Here we convert to base CNY (TEMP)
-		// We no longer have control over the base so we have to convert
-		const tmpRates: Rates["rates"] = {};
-		for (const key in json.rates) {
-			tmpRates[key] = json.rates[key] / json.rates.CNY; 
-		} 
-		json.rates = tmpRates;
-		json.base = "cny";
 
 		// Save
 		chrome.storage.local.set({ rates: json }, () => {

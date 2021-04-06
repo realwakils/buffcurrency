@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "buffcurrency",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Buff 163 Currency Realtime Converter",
   "keywords": [
     "currency",

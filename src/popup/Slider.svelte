@@ -24,7 +24,7 @@
 	<SvelteTooltip tip="Full price: $50. Price now: ${50*val/100}" top color="#008cba">
 		<button id="info">?</button>
 	</SvelteTooltip>
-	<p style="color:gray;">Apply a price modifier. Useful for Buff Balance.</p>
+	<p style="color:gray;">Apply a price modifier. Useful for selling Buff Balance.</p>
 	<form id="fullSlider" on:submit|preventDefault={updateStorageAPI}>
 		<span id="displayVal" on:click={() => val = 100}>{val}%</span>
 		<input type="range" min="50" max="200" bind:value={val} id="slider" />
