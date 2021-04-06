@@ -1,10 +1,10 @@
-<main>
+<header>
 	<h1>Buff Currency</h1>
 	<h4>Choose a currency</h4>
-</main>
+</header>
 
 <style>
-	main {
+	header {
 		font-size: larger;
 	}
 	h1,

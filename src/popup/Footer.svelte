@@ -1,5 +1,14 @@
-<main>
+<script lang="ts">
+	// IDE's do not understand nor work with Rollup injected variables. (@rollup/plugin-replace)
+	// @ts-ignore
+	const showDevMessage: string = !isProduction;
+</script>
+
+<footer>
 	<hr />
+	{#if showDevMessage}
+		<strong style="color: orange;">DEVELOPMENT BUILD</strong>
+	{/if}
 	<p>
 		Created with 💖 by <a target="_blank" href="http://wakils.com">wakils</a> &
 		<a target="_blank" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">linnus</a>
@@ -10,10 +19,10 @@
 		<!-- svelte-ignore missing-declaration -->
 		{chrome.runtime.getManifest().version}
 	</p>
-</main>
+</footer>
 
 <style>
-	main {
+	footer {
 		font-size: larger;
 		text-align: center;
 	}
