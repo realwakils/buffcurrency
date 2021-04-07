@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3
+- Switched to a more stable, reliable and easier API endpoint for currencies (self controlled)
+- Added price modifier with slider
+- Automatic reloading upon selecting currency
+- Cleaned up some code
+
 ## 1.0.2
 - Fixed bug where the currency API would return an error message
 - Fixed #2
