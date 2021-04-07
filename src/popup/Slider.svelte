@@ -21,7 +21,7 @@
 
 <div id="wrapper">
 	<strong id="title">Price modifier</strong>
-	<SvelteTooltip tip="Full price: $50. Price now: ${50*val/100}" top color="#008cba">
+	<SvelteTooltip tip="Full price: $75. Price now: ${75*val/100}" top color="#008cba">
 		<button id="info">?</button>
 	</SvelteTooltip>
 	<p style="color:gray;">Apply a price modifier. Useful for selling Buff Balance.</p>
@@ -32,6 +32,7 @@
 	</form>
 </div>
 
+<!-- DISCLAIMER: This CSS and layout is quite horrible, fix later, I just want a version of this out -->
 <style>
 	#wrapper {
 		padding: 10px 0 15px 0;
@@ -44,6 +45,7 @@
 		margin-top: 5px;
 		display: flex;
 		justify-content: space-around;
+		align-items: center;
 	}
 	#info {
 		background-color: #008cba;
@@ -74,5 +76,9 @@
 		text-align: center;
 		text-decoration: none;
 	}
-	#apply,#displayVal:hover { cursor: pointer; }
+	#apply:hover,#displayVal:hover { cursor: pointer; background: #2c2c2c15; }
+	#displayVal {
+		width: 30px;
+		margin-right: 8px;
+	}
 </style>
