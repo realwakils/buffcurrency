@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.4
+- API endpoint changed
+
 ## 1.0.3
 - Switched to a more stable, reliable and easier API endpoint for currencies (self controlled)
 - Added price modifier with slider

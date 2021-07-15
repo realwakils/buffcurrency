@@ -4,4 +4,4 @@ export const targetClasses: Array<string> = [
 	'.total_price', '.sale_fee', '.selling_price'
 ];
 export const targetClassesSelector: string = targetClasses.join(', ');
-export const URLS_SRC: string = "https://einsteinfessor.wakils.com/buffcurrency";
+export const URLS_SRC: string = "https://einsteinfessor.dk/buffcurrency";
