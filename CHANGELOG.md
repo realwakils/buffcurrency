@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.5
+- Complete infrastructure revamp
+- Changed from private api to 'Exchange Rate API'
+- Major bug fixed and more stability
+- Extra features added
+
 ## 1.0.4
 - API endpoint changed
 

@@ -1,0 +1,26 @@
+{
+	"name": "Buff Currency Converter",
+	"description": "Easily convert currencies on buff.163.com",
+	"version": "1.0.5",
+	"permissions": ["alarms", "storage"],
+	"host_permissions": ["*://buff.163.com/*"],
+	"manifest_version": 3,
+	"background": {
+		"service_worker": "js/background.js",
+		"type": "module"
+	},
+	"action": {
+		"default_title": "Settings",
+		"default_popup": "popup.html"
+	},
+	"icons": {
+		"16": "assets/buff_163_icon_16.png",
+		"48": "assets/buff_163_icon_48.png",
+		"128": "assets/buff_163_icon_128.png"
+	},
+	"content_scripts": [{
+		"matches": ["*://buff.163.com/*"],
+		"run_at": "document_idle",
+		"js": ["js/content.js"]
+	}]
+}

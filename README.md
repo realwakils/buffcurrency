@@ -11,55 +11,48 @@ Current status: `RELEASED`
 
 ## Features
 * Eases the process of converting currencies from buff.163.com
+* Synchronizes user preferences (chosen currency) across all devices on an acccount.
+* Automatically updates currency rates frequently, so you never get inaccurate prices.
 * Provides a user-friendly diverse UI, that lets you change to your wanted currency
 * Features more than 30 currencies
 * Fast and light-weight
-* Synchronizes user preferences (chosed currency) across all devices on an acccount.
-* Automatically updates currency rates frequently, so you never get inaccurate prices.
 
 ## Installation and guide
-1. Install the latest version of Buff Currency on the Google Webstore [here](https://chrome.google.com/webstore/detail/buff-currency/ecnjcjbilnpjjnpjlfkoompbpehpbnbc).
+1. Install the latest version of Buff Currency from the Google Webstore [here](https://chrome.google.com/webstore/detail/buff-currency/ecnjcjbilnpjjnpjlfkoompbpehpbnbc).
 2. Find Buff Currency in your Chrome Extensions and choose the currency you want to convert to.
-3. Head on over to buff.163.com (if you are already on buff, make sure to reload). Now you should see the prices being converted.
+3. Head on over to buff.163.com (if you are already on buff, make sure to reload the page). Now you should see the prices being converted.
 
 ### Example
 ![Example Gif](https://lh3.googleusercontent.com/pmu_4mv0HxjFKYyneLbmRh4_dUKvKActVx1-KuO4bE6SYVTr_irojvy9ynN1_0HygI4OPxCDDGXYDIRVB_4ccQX8=w640-h400-e365-rj-sc0x00ffffff)
 <!-- Here a gif of choosing a currency and loading buff.163.com should be showed -->
 
 ## Development
-<span style="color:#f25b50;">You only need to follow the below instructions if you are trying to modify this software.</span><br>
-The Buff Currency Extension is written in [Typescript](https://www.typescriptlang.org/) and utilizes [Rollup](https://rollupjs.org/) and [Rollup Plugin Chrome Extension](https://www.npmjs.com/package/rollup-plugin-chrome-extension) in order to maintain a smooth environment both for the developer and end-user. [Svelte](https://svelte.dev/) is used for frontend UI for a blazing fast application.
-### Prequisites
-* [node.js](https://nodejs.org/en/download/)
-* yarn
-```sh
-npm install yarn -g
-```
-* node.js
-* yarn
+On the 3rd of August 2022, the extension's development environment was drastically simplified. This means, we no longer use NPM, Rollup or Svelte.
+It's simply plain vanilla JavaScript.
+
+It is STRONGLY recommended to use `web-ext`, in order to automatically reload and package the extension.
 ### Setup
 1. Clone the repo
-```sh
-git clone https://github.com/realwakils/buffcurrency.git
-cd buffcurrency
-```
-2. Install NPM packages
-```sh
-yarn
-```
-3. Run the project
-```JS
-yarn dev
-```
+	```sh
+	git clone https://github.com/realwakils/buffcurrency.git
+	cd buffcurrency
+	```
+2. Install and run web-ext (Optional)
+	```sh
+	npm install -g web-ext
+	web-ext run -t chromium
+	```
+	
+	Use the `--chromium-binary` and `--chromium-profile` flags, if you wish to use your own Chrome profile. By doing this you avoid having to login to Buff every time.
 
 ## Contributing
 Any contributions you make are greatly appreciated.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b AmazingFeature`)
-3. Commit your Changes (`git commit -a -m 'Add some AmazingFeature`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Create your feature branch (`git checkout -b AmazingFeature`)
+3. Commit your changes (`git commit -a -m 'Add some amazing feature`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a pull request
 
 ## Credits
 Extra credits are due to:
