@@ -49,13 +49,13 @@ chrome.runtime.onInstalled.addListener(async () => {
 		await fetchRates();
 	});
 
-	// Initial fetching of data
-	await fetchRates();
-
 	// Default options
 	const defaultOptions = {
 		preferredCurrency: "USD",
 		priceModifier: 1,
 	};
 	await chrome.storage.sync.set({ options: defaultOptions });
+
+	// Initial fetching of data. This may throw, hence it's the last thing we do.
+	await fetchRates();
 });

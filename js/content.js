@@ -8,6 +8,13 @@ async function main() {
 	ratesCache = (await chrome.storage.local.get("rates")).rates;
 	optionsCache = (await chrome.storage.sync.get("options")).options;
 
+	// If there are no rates in the cache, it's because the content script failed to fetch the
+	// rates for whatever reason. Show a notification and don't attempt any further conversion.
+	if (!ratesCache) {
+		showError("missing rates (check logs)");
+		return;
+	}
+
 	// Do initial scan of tree, converting elements
 	convertCurrencyInsubtree(document.documentElement);
 
@@ -55,6 +62,16 @@ function convertCurrencyInsubtree(element) {
 			return formatCurrency.format(convertedPrice);
 		});
 	}
+}
+
+function showError(message) {
+	const div = document.createElement("DIV");
+	div.style.backgroundColor = "red";
+	div.style.color = "white";
+	div.style.textAlign = "center";
+	div.style.padding = ".2em";
+	div.textContent = `Error: ${message}`;
+	document.body.prepend(div);
 }
 
 main();
