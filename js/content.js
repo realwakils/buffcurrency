@@ -36,18 +36,6 @@ async function main() {
 		}
 	});
 	observer.observe(document, { childList: true, subtree: true });
-
-	// Listen to messages from the popup or background scripts
-	chrome.runtime.onMessage.addListener((message) => {
-		switch (message.type) {
-			case "settings-changed":
-				window.location.reload();
-				break;
-			default:
-				console.error(`Recieved unknown message type '${message.type}'`);
-				break;
-		}
-	});
 }
 
 function convertCurrencyInsubtree(element) {
