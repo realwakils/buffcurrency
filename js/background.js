@@ -12,6 +12,7 @@ async function fetchRates() {
 		type: "object",
 		properties: {
 			result: { const: "success" },
+			time_last_update_unix: { type: "integer" },
 			base_code: { const: "CNY" },
 			rates: {
 				type: "object",
@@ -20,19 +21,19 @@ async function fetchRates() {
 				},
 			},
 		},
-		required: ["result", "base_code", "rates"],
+		required: ["result", "base_code", "rates", "time_last_update_utc"],
 		additionalProperties: true,
 	};
 	const { valid, errors } = validate(data, schema);
 	if (!valid)
 		throw new Error(`Recieved invalid JSON: ${errors[0].property} ${errors[0].message}`);
 
-	chrome.storage.local.set({ rates: data.rates }, () => {
+	chrome.storage.local.set({ rates: data.rates, lastUpdate: data.time_last_update_unix }, () => {
 		if (chrome.runtime.lastError) {
 			throw new Error(chrome.runtime.lastError);
 		}
 
-		console.log("Set rates to %o", data.rates);
+		console.log("Set rates to %o (last updated %d)", data.rates, data.time_last_update_unix);
 	});
 }
 
