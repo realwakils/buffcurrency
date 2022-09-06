@@ -8,20 +8,30 @@ async function main() {
 	({ rates, lastUpdate } = await chrome.storage.local.get(["rates", "lastUpdate"]));
 	({ options } = await chrome.storage.sync.get("options"));
 
-	// If there are no rates in the cache, it's because the content script failed to fetch the
+	// If there are no rates in the cache and new ones can't be fetched, it's because the
+	// content script failed to fetch the
 	// rates for whatever reason. Show a notification and don't attempt any further conversion.
 	if (!rates) {
-		showError("missing rates");
-		return;
+		const success = await chrome.runtime.sendMessage("fetch-rates");
+		if (success) {
+			({ rates, lastUpdate } = await chrome.storage.local.get(["rates", "lastUpdate"]));
+		} else {
+			showMessage("missing exchange rates", true);
+			return;
+		}
 	}
 
 	// Show a warning if the rates are cache.
-	const week = 60 * 60 * 24 * 7;
+	const maxDelta = 60 * 60 * 24 * 7;
 	const delta = (new Date() - new Date(lastUpdate * 1e3)) / 1000;
-	if (delta > week) {
-		console.log(`Last update was ${new Date(lastUpdate * 1e3)}. Too long ago.`);
-		showWarning("outdated rates");
-
+	if (delta > maxDelta) {
+		// FIXME: check if the new response from the API is within our bounds. It could be
+		//        that the API simply wasn't receiving any new data from _its_ source. This
+		//        is very unlikely though.
+		const success = await chrome.runtime.sendMessage("fetch-rates");
+		if (!success) {
+			showWarning(`outdated exchange rates (${new Date(lastUpdate)})`);
+		}
 	}
 
 	// Do initial scan of tree, converting elements
@@ -61,23 +71,13 @@ function convertCurrencyInsubtree(element) {
 	}
 }
 
-function showError(message) {
+function showMessage(message, isError) {
 	const div = document.createElement("DIV");
-	div.style.backgroundColor = "#ff3a3a";
+	div.style.backgroundColor = isError ? "red" : "orange";
 	div.style.color = "white";
 	div.style.textAlign = "center";
 	div.style.padding = ".2em";
-	div.textContent = `Error: ${message} (check logs)`;
-	document.body.prepend(div);
-}
-
-function showWarning(message) {
-	const div = document.createElement("DIV");
-	div.style.backgroundColor = "#ffb225";
-	div.style.color = "white";
-	div.style.textAlign = "center";
-	div.style.padding = ".2em";
-	div.textContent = `Warning: ${message} (check logs)`;
+	div.textContent = `Buff Currency Converter: ${message} (contact devs)`;
 	document.body.prepend(div);
 }
 

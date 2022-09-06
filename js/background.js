@@ -37,6 +37,22 @@ async function fetchRates() {
 	});
 }
 
+chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
+	switch (request) {
+		case "fetch-rates":
+			fetchRates()
+				.then(_ => sendResponse(true))
+				.catch((err) => {
+					console.error(err);
+					sendResponse(false);
+				});
+			return true;
+		default:
+			// ...
+			break;
+	}
+});
+
 chrome.runtime.onInstalled.addListener(async () => {
 	chrome.alarms.create("fetch-rates", {
 		periodInMinutes: 60 * 24,
