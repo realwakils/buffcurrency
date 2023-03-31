@@ -2,6 +2,8 @@
 // external API.
 
 async function fetchRates() {
+	console.log("Fetching rates...");
+
 	const response = await fetch("https://open.er-api.com/v6/latest/CNY");
 	if (!response.ok)
 		throw new Error(`API request failed with code ${response.status}: ${response.StatusText}`);
@@ -38,11 +40,9 @@ chrome.runtime.onInstalled.addListener(async () => {
 	});
 
 	chrome.alarms.onAlarm.addListener(async (alarm) => {
-		if (alarm.name !== "fetch-rates") {
-			return;
+		if (alarm.name === "fetch-rates") {
+			await fetchRates();
 		}
-
-		await fetchRates();
 	});
 
 	// Default options

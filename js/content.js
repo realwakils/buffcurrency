@@ -71,7 +71,7 @@ function convertCurrencyInsubtree(element) {
 	}
 }
 
-function showMessage(message, isError) {
+function showMessage(message, isError = false) {
 	const div = document.createElement("DIV");
 	div.style.backgroundColor = isError ? "red" : "orange";
 	div.style.color = "white";
