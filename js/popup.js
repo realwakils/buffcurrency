@@ -2,9 +2,31 @@
 // responsible for reading the users options and storing them using the storage API.
 
 async function main() {
+	// Refresh rates comes before everything else, since we want this to work re
+	{
+		const refreshButton = document.getElementById("refetchRates");
+
+		refreshButton.disabled = false;
+
+		refreshButton.addEventListener("click", async () => {
+			const result = await chrome.runtime.sendMessage("fetch-rates");
+			if (result.success) {
+				alert("Successfully updated rates!");
+			} else {
+				alert(`Failed to update rates: ${result.error} See extension logs for more details.`);
+			}
+
+			// Reload all tabs such that new rates are loaded from storage.
+			await reloadAllTabs();
+		});
+	}
+
+	// Fetch options and rates from the store. If we can't it doesn't make
+	// sense to activate the next two input elements.
 	const { rates } = await chrome.storage.local.get("rates");
 	const { options } = await chrome.storage.sync.get("options");
 	if (rates === undefined || options === undefined) {
+		// FIXME: this error message could look *a lot* better.
 		const errorElement = document.createElement("P");
 		errorElement.textContent = "Missing currency data or options";
 		errorElement.style.color = "red";
@@ -64,23 +86,6 @@ async function main() {
 		modifierElement.disabled = false;
 	}
 
-	{
-		const refreshButton = document.getElementById("refetchRates");
-
-		refreshButton.disabled = false;
-
-		refreshButton.addEventListener("click", async () => {
-			const success = await chrome.runtime.sendMessage("fetch-rates");
-			if (!success) {
-				alert("Failed to update rates. See extension logs for more details.");
-			} else {
-				alert("Successfully updated rates!");
-			}
-
-			// Reload all tabs such that new rates are loaded from storage.
-			await reloadAllTabs();
-		});
-	}
 }
 
 async function handleChange() {

@@ -12,7 +12,7 @@ async function main() {
 	// content script failed to fetch the
 	// rates for whatever reason. Show a notification and don't attempt any further conversion.
 	if (!rates) {
-		const success = await chrome.runtime.sendMessage("fetch-rates");
+		const { success } = await chrome.runtime.sendMessage("fetch-rates");
 		if (success) {
 			({ rates, lastUpdate } = await chrome.storage.local.get(["rates", "lastUpdate"]));
 		} else {
@@ -28,7 +28,7 @@ async function main() {
 		// FIXME: check if the new response from the API is within our bounds. It could be
 		//        that the API simply wasn't receiving any new data from _its_ source. This
 		//        is very unlikely though.
-		const success = await chrome.runtime.sendMessage("fetch-rates");
+		const { success } = await chrome.runtime.sendMessage("fetch-rates");
 		if (!success) {
 			showWarning(`outdated exchange rates (${new Date(lastUpdate)})`);
 		}

@@ -19,19 +19,20 @@ async function fetchRates() {
 }
 
 chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
-	switch (request) {
-		case "fetch-rates":
-			fetchRates()
-				.then(_ => sendResponse(true))
-				.catch((err) => {
-					console.error(err);
-					sendResponse(false);
-				});
-			return true;
-		default:
-			// ...
-			break;
+ 	if (request !== "fetch-rates") {
+		return;
 	}
+
+	fetchRates()
+		.then(_ => sendResponse({ success: true }))
+		.catch((error) => {
+			console.error(error);
+			sendResponse({ success: false, error: error?.message ?? error });
+		});
+
+	// Return true to indicate we want to send a response asynchronously.
+	// The actual response will be sent from the promise.
+	return true;
 });
 
 chrome.runtime.onInstalled.addListener(async () => {
