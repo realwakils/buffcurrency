@@ -85,7 +85,6 @@ async function main() {
 
 		modifierElement.disabled = false;
 	}
-
 }
 
 async function handleChange() {
