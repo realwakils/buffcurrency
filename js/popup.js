@@ -52,14 +52,15 @@ async function main() {
 		const modifierElement = document.getElementById("priceModifier");
 		const modifierLabelElement = document.getElementById("priceModifierLabel");
 
+		modifierElement.value = options.priceModifier * 100;
+
+		modifierElement.addEventListener("change", handleChange);
+
 		// When the modifier element is changes value, update the label.
 		const updateLabel = () => modifierLabelElement.textContent = `Price Modifier: ${modifierElement.value}%`
 		modifierElement.addEventListener("input", updateLabel);
 		updateLabel();
 
-		modifierElement.addEventListener("change", handleChange);
-
-		modifierElement.value = options.priceModifier * 100;
 		modifierElement.disabled = false;
 	}
 
