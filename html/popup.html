@@ -20,23 +20,23 @@
 				margin-top: .75em;
 			}
 
-			form > * {
-				width: 100%;
-			}
-
 			p {
 				margin-block-start: 0;
 			}
 
-			form select {
+			select, button {
 				padding: 6px 8px;
 				font-size: 16px;
 				border: none;
 				border-radius: 3px;
 				background-color: #0f9d58;
 				color: white;
-				margin-bottom: 1em;
 				box-shadow: 0px 1px 4px 0px rgb(0 0 0 / 20%);
+			}
+
+			select, button, input {
+				width: 100%;
+				margin: 0 0 1em;
 			}
 
 			/* scrollbar styling */
@@ -47,7 +47,7 @@
 			::-webkit-scrollbar-thumb:hover { background: #555; }
 
 			/* explanations should be a bit smaller */
-			form p {
+			p {
 				font-size: small;
 				color: gray;
 			}
@@ -70,9 +70,11 @@
 		</style>
 	</head>
 	<body>
-		<h1>Buff Currency Converter</h1>
+		<header>
+			<h1>Buff Currency Converter</h1>
+		</header>
 		<hr />
-		<form id="optionsForm">
+		<main>
 			<label for="preferred currency">Preferred currency:</label>
 			<p>Select the currency you wish to convert all prices on the page to.</p>
 			<select id="preferredCurrency" name="preferred currency" disabled>
@@ -83,10 +85,15 @@
 					<!-- populated by JavaScript -->
 				</optgroup>
 			</select>
+
 			<label id="priceModifierLabel" for="price modifier">Price modifier</label>
 			<p>Apply a price modifier. Useful for selling Buff Balance</p>
 			<input type="range" id="priceModifier" name="price modifier" min="50" max="200" step="5" disabled />
-		</form>
+
+			<label id="priceModifierLabel" for="price modifier">Refresh rates</label>
+			<p>Rates are automatically updated so using this button should not be necessary.</p>
+			<button id="refetchRates" disabled>Refetch</button>
+		</main>
 
 		<hr />
 		<footer>
