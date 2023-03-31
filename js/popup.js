@@ -70,11 +70,11 @@ async function main() {
 		refreshButton.disabled = false;
 
 		refreshButton.addEventListener("click", async () => {
-			const success = await chrome.runtime.sendMessage("fetch-rates");
-			if (!success) {
-				alert("Failed to update rates. See extension logs for more details.");
-			} else {
+			const result = await chrome.runtime.sendMessage("fetch-rates");
+			if (result.success) {
 				alert("Successfully updated rates!");
+			} else {
+				alert(`Failed to update rates: ${result.error} See extension logs for more details.`);
 			}
 
 			// Reload all tabs such that new rates are loaded from storage.
