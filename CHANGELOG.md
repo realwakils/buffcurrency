@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.6
+- Show a warning about when the rates are outdated
+- Show an error when rates are missing
+- Changed icons to be transparent
+
 ## 1.0.5
 - Complete infrastructure revamp
 - Changed from private api to 'Exchange Rate API'

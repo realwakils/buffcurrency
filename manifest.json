@@ -1,7 +1,7 @@
 {
 	"name": "Buff Currency Converter",
 	"description": "Easily convert currencies on buff.163.com",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"permissions": ["alarms", "storage"],
 	"host_permissions": ["*://buff.163.com/*"],
 	"manifest_version": 3,
