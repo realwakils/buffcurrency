@@ -2,25 +2,6 @@
 // responsible for reading the users options and storing them using the storage API.
 
 async function main() {
-	// Refresh rates comes before everything else, since we want this to work re
-	{
-		const refreshButton = document.getElementById("refetchRates");
-
-		refreshButton.disabled = false;
-
-		refreshButton.addEventListener("click", async () => {
-			const result = await chrome.runtime.sendMessage("fetch-rates");
-			if (result.success) {
-				alert("Successfully updated rates!");
-			} else {
-				alert(`Failed to update rates: ${result.error} See extension logs for more details.`);
-			}
-
-			// Reload all tabs such that new rates are loaded from storage.
-			await reloadAllTabs();
-		});
-	}
-
 	// Fetch options and rates from the store. If we can't it doesn't make
 	// sense to activate the next two input elements.
 	const { rates } = await chrome.storage.local.get("rates");
@@ -34,6 +15,7 @@ async function main() {
 		return;
 	}
 
+	// Populate currency selection
 	{
 		// At the top, we add a small group of the most commonly used currencies.
 		const commonCurrenciesGroup = document.getElementById("commonCurrencies");
@@ -70,6 +52,7 @@ async function main() {
 		selectElement.disabled = false;
 	}
 
+	// Hook up modifier
 	{
 		const modifierElement = document.getElementById("priceModifier");
 		const modifierLabelElement = document.getElementById("priceModifierLabel");
@@ -98,10 +81,6 @@ async function handleChange() {
 	await chrome.storage.sync.set({ options });
 
 	// Reload all tabs such that new options are loaded from storage.
-	await reloadAllTabs();
-}
-
-async function reloadAllTabs() {
 	const tabs = await chrome.tabs.query({ url: "*://buff.163.com/*" });
 	await Promise.all(tabs.map(t => chrome.tabs.reload(t.id)));
 }
