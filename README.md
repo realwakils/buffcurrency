@@ -29,7 +29,7 @@ Created with 💖 by [wakils] & [linnnus]
 ### Example
 
 <!-- TODO: a gif of choosing a currency and loading buff.163.com should be showed -->
-![Example Gif](https://lh3.googleusercontent.com/pmu_4mv0HxjFKYyneLbmRh4_dUKvKActVx1-KuO4bE6SYVTr_irojvy9ynN1_0HygI4OPxCDDGXYDIRVB_4ccQX8=w640-h400-e365-rj-sc0x00ffffff "Buff front page. Prices are converted to USD.")
+![Example Gif](https://i.postimg.cc/qv0ZzGrY/Sk-rmbillede-2023-04-03-kl-11-16-59.png "Buff front page. Prices are converted to USD.")
 
 ## Development
 
@@ -65,7 +65,6 @@ Thank you!
 [wakils]: http://wakils.com
 [linnnus]: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 [webstore link]: https://chrome.google.com/webstore/detail/buff-currency/ecnjcjbilnpjjnpjlfkoompbpehpbnbc
-[example gif]: https://lh3.googleusercontent.com/pmu_4mv0HxjFKYyneLbmRh4_dUKvKActVx1-KuO4bE6SYVTr_irojvy9ynN1_0HygI4OPxCDDGXYDIRVB_4ccQX8=w640-h400-e365-rj-sc0x00ffffff
 [buff.163.com]: https://buff.163.com/
 [Zukko04]: https://www.instagram.com/lassesejrbrunbjerg/
 [CoachDP]: https://www.twitch.tv/coachdp
