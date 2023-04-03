@@ -47,7 +47,7 @@ reload and package the extension.
    ```
 3. Test the extension
    ```sh
-   web-ext run -t chromium
+   web-ext run -t chromium --url https://buff.163.com
    ```
    Use the `--chromium-binary` and `--chromium-profile` flags, if you wish
    to use your own Chrome profile. By doing this you avoid having to login
