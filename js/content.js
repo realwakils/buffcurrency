@@ -9,29 +9,23 @@ async function main() {
 	({ options } = await chrome.storage.sync.get("options"));
 
 	// If there are no rates in the cache and new ones can't be fetched, it's because the
-	// content script failed to fetch the
-	// rates for whatever reason. Show a notification and don't attempt any further conversion.
+	// background script failed to fetch the rates for whatever reason.
+	// Show a notification and don't attempt any further conversion.
 	if (!rates) {
-		const { success } = await chrome.runtime.sendMessage("fetch-rates");
-		if (success) {
-			({ rates, lastUpdate } = await chrome.storage.local.get(["rates", "lastUpdate"]));
-		} else {
-			showMessage("missing exchange rates", true);
-			return;
-		}
+		showMessage("missing exchange rates", true);
+		return;
 	}
 
-	// Show a warning if the rates are cache.
-	const maxDelta = 60 * 60 * 24 * 7;
+	// Show a warning if the rates  are outdated. This is highly unlikely
+	// since it would require the API request and DB request to fail in
+	// just the right way. Just in case, we "handle" this case here.
+	// NOTE: The value of `maxDelta` should be significantly longer than
+	//       the interval specified for the alarm in the background script.
+	const maxDelta = 0 // 60 * 60 * 24 * 7;
 	const delta = (new Date() - new Date(lastUpdate * 1e3)) / 1000;
 	if (delta > maxDelta) {
-		// FIXME: check if the new response from the API is within our bounds. It could be
-		//        that the API simply wasn't receiving any new data from _its_ source. This
-		//        is very unlikely though.
-		const { success } = await chrome.runtime.sendMessage("fetch-rates");
-		if (!success) {
-			showWarning(`outdated exchange rates (${new Date(lastUpdate)})`);
-		}
+		const lastUpdateFormatted = new Intl.DateTimeFormat(undefined, { dateStyle: 'short', timeStyle: 'short' }).format(new Date(lastUpdate * 1e3));
+		showMessage(`outdated exchange rates (${lastUpdateFormatted})`);
 	}
 
 	// Do initial scan of tree, converting elements
