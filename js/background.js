@@ -17,7 +17,7 @@ async function fetchRates() {
 async function updateRates() {
 	try {
 		const data = await fetchRates();
-		console.log("Fetched rates: %d", data);
+		console.log("Fetched rates: %o", data);
 		await chrome.storage.local.set({ rates: data.rates, lastUpdate: data.time_last_update_unix });
 		console.log("Set rates to %o (last updated %d)", data.rates, data.time_last_update_unix);
 	} catch (err) {

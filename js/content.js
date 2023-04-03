@@ -24,14 +24,17 @@ async function main() {
 	const maxDelta = 0 // 60 * 60 * 24 * 7;
 	const delta = (new Date() - new Date(lastUpdate * 1e3)) / 1000;
 	if (delta > maxDelta) {
-		const lastUpdateFormatted = new Intl.DateTimeFormat(undefined, { dateStyle: 'short', timeStyle: 'short' }).format(new Date(lastUpdate * 1e3));
-		showMessage(`outdated exchange rates (${lastUpdateFormatted})`);
+		const lastUpdateFormatted = new Intl.DateTimeFormat(undefined, {
+			dateStyle: "short",
+			timeStyle: "short",
+		}) .format(new Date(lastUpdate * 1e3));
+		showMessage(`outdated exchange rates from ${lastUpdateFormatted}`);
 	}
 
 	// Do initial scan of tree, converting elements
 	convertCurrencyInsubtree(document.documentElement);
 
-	// Use a MutationObserver to catch any further modifications to the DOM
+	// Use a MutationObserver to catch any further modifications to the DOM.
 	const observer = new MutationObserver((mutationList) => {
 		for (const mutation of mutationList) {
 			for (const node of mutation.addedNodes) {
@@ -43,9 +46,9 @@ async function main() {
 }
 
 function convertCurrencyInsubtree(element) {
+	// We do a depth-first traversal of the tree to avoid annihilating the entire subtree because
+	// the root element matches the regular expression.
 	if (element.children) {
-		// We do a depth-first traversal of the tree to avoid annihilating the entire subtree because
-		// the root element matches the regular expression.
 		for (const child of element.children) {
 			convertCurrencyInsubtree(child);
 		}
@@ -71,7 +74,7 @@ function showMessage(message, isError = false) {
 	div.style.color = "white";
 	div.style.textAlign = "center";
 	div.style.padding = ".2em";
-	div.textContent = `Buff Currency Converter: ${message} (contact devs)`;
+	div.textContent = `BuffCurrency: ${message} (contract devs)`;
 	document.body.prepend(div);
 }
 
