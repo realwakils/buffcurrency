@@ -8,18 +8,21 @@ async function fetchRates() {
 	if (!response.ok)
 		throw new Error(`API request failed with code ${response.status}: ${response.StatusText}`);
 	const data = await response.json();
+	console.debug("API result: %o", data);
 	if (data.result === "error")
 		throw new Error(`API request returned error: ${data["error-type"]}`);
 
-	return data;
+	return {
+		rates: data.rates,
+		lastUpdate: data.time_last_update_unix * 1e3,
+	};
 }
 
 async function updateRates() {
 	try {
-		const data = await fetchRates();
-		console.log("Fetched rates: %o", data);
-		await chrome.storage.local.set({ rates: data.rates, lastUpdate: data.time_last_update_unix });
-		console.log("Set rates to %o (last updated %d)", data.rates, data.time_last_update_unix);
+		const { rates, lastUpdate} = await fetchRates();
+		await chrome.storage.local.set({ rates, lastUpdate});
+		console.log("Set rates to %o (last updated %d)", rates, lastUpdate);
 	} catch (err) {
 		console.error("An error occured during fetching/saving of rates: %o", err);
 		await chrome.storage.local.remove(["rates", "lastUpdate"]);

@@ -22,12 +22,12 @@ async function main() {
 	// NOTE: The value of `maxDelta` should be significantly longer than
 	//       the interval specified for the alarm in the background script.
 	const maxDelta = 0 // 60 * 60 * 24 * 7;
-	const delta = (new Date() - new Date(lastUpdate * 1e3)) / 1000;
+	const delta = (new Date() - new Date(lastUpdate)) / 1000;
 	if (delta > maxDelta) {
 		const lastUpdateFormatted = new Intl.DateTimeFormat(undefined, {
 			dateStyle: "short",
 			timeStyle: "short",
-		}) .format(new Date(lastUpdate * 1e3));
+		}) .format(new Date(lastUpdate));
 		showMessage(`outdated exchange rates from ${lastUpdateFormatted}`);
 	}
 
