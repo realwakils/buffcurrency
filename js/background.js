@@ -19,15 +19,9 @@ async function fetchRates() {
 }
 
 async function updateRates() {
-	try {
-		const { rates, lastUpdate} = await fetchRates();
-		await chrome.storage.local.set({ rates, lastUpdate});
-		console.log("Set rates to %o (last updated %d)", rates, lastUpdate);
-	} catch (err) {
-		console.error("An error occured during fetching/saving of rates: %o", err);
-		await chrome.storage.local.remove(["rates", "lastUpdate"]);
-		console.log("Cleared keys to avoid confusion about outdated rates.");
-	}
+	const { rates, lastUpdate} = await fetchRates();
+	await chrome.storage.local.set({ rates, lastUpdate});
+	console.log("Set rates to %o (last updated %d)", rates, lastUpdate);
 }
 
 chrome.runtime.onInstalled.addListener(async () => {
