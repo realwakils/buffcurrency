@@ -12,7 +12,7 @@ async function main() {
 	// background script failed to fetch the rates for whatever reason.
 	// Show a notification and don't attempt any further conversion.
 	if (!rates) {
-		showMessage("missing exchange rates", true);
+		showMessage("missing exchange rates", "Missing-rates", true);
 		return;
 	}
 
@@ -21,14 +21,14 @@ async function main() {
 	// just the right way. Just in case, we "handle" this case here.
 	// NOTE: The value of `maxDelta` should be significantly longer than
 	//       the interval specified for the alarm in the background script.
-	const maxDelta = 60 * 60 * 24 * 7;
+	const maxDelta = 0//60 * 60 * 24 * 7;
 	const delta = (new Date() - new Date(lastUpdate)) / 1000;
 	if (delta > maxDelta) {
 		const lastUpdateFormatted = new Intl.DateTimeFormat(undefined, {
 			dateStyle: "short",
 			timeStyle: "short",
 		}) .format(new Date(lastUpdate));
-		showMessage(`outdated exchange rates from ${lastUpdateFormatted}`);
+		showMessage(`outdated exchange rates from ${lastUpdateFormatted}`, "Outdated-rates", false);
 	}
 
 	// Do initial scan of tree, converting elements
@@ -68,14 +68,34 @@ function convertCurrencyInsubtree(element) {
 	}
 }
 
-function showMessage(message, isError = false) {
-	const div = document.createElement("DIV");
-	div.style.backgroundColor = isError ? "red" : "orange";
-	div.style.color = "white";
-	div.style.textAlign = "center";
-	div.style.padding = ".2em";
-	div.textContent = `BuffCurrency: ${message} (contract devs)`;
-	document.body.prepend(div);
+function showMessage(message, wikiPage, isError) {
+	// Create an outer container with a shadow root to isolate
+	// the banner's CSS from the rest of the page.
+	const container = document.createElement("DIV");
+	container.attachShadow({ mode: "open" });
+
+	const banner = document.createElement("DIV");
+	Object.assign(banner.style, {
+		backgroundColor: isError ? "red" : "orange",
+		color: "white",
+		textAlign: "center",
+		padding: ".2em",
+	});
+
+	const preface = document.createElement("SPAN");
+	preface.textContent = `BuffCurrency: `;
+	banner.appendChild(preface);
+
+	const link = document.createElement("A");
+	link.href = `https://github.com/realwakils/buffcurrency/wiki/${wikiPage}`;
+	link.alt = "Wiki page with more information";
+	link.textContent = message;
+	link.style.color = "inherit";
+	banner.appendChild(link);
+
+	container.shadowRoot.appendChild(banner);
+
+	document.body.prepend(container);
 }
 
 main();
