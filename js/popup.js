@@ -6,12 +6,36 @@ async function main() {
 	// sense to activate the next two input elements.
 	const { rates } = await chrome.storage.local.get("rates");
 	const { options } = await chrome.storage.sync.get("options");
+
+	// If something is missing from storage, show a way too nice
+	// error message and call it quits. Seriously, I spent so much
+	// time on this and no one is ever going to see it.
 	if (rates === undefined || options === undefined) {
-		// FIXME: this error message could look *a lot* better.
-		const errorElement = document.createElement("P");
-		errorElement.textContent = "Missing currency data or options";
-		errorElement.style.color = "red";
+		const errorElement = document.createElement("DIV");
+		errorElement.textContent = "Missing currency data or user options";
+		Object.assign(errorElement.style, {
+			// Position on top of entire body
+			position: "fixed",
+			top: "0",
+			left: "0",
+			width: "100%",
+			height: "100%",
+
+			// Blur everything below us.
+			backdropFilter: "blur(2px) brightness(70%)",
+
+			// Style font.
+			fontSize: "large",
+			color: "white",
+			padding: "0 3rem",
+
+			// Vertically center text
+			display: "flex",
+			alignItems: "center",
+			textAlign: "center",
+		});
 		document.body.appendChild(errorElement);
+
 		return;
 	}
 
