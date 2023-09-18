@@ -9,6 +9,8 @@ A currency converter made for buff.163.com (Google Extension)
 
 Created with 💖 by [wakils] & [linnnus]
 
+`Notice: On 18/09/2023 the extension was accquired by Limitlessextensions. These source files are still kept online for reference but it may no longer reflect the contents of the extension available at the Chrome webstore.`
+
 ## Features
 
 * Eases the process of converting currencies from buff.163.com
